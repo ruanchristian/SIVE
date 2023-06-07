@@ -2,31 +2,25 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Student\StudentController;
 
 Route::get('/', function () {
     return to_route('login');
 });
 
-Route::get('/dashboard', function () {
+Route::get('painel', function () {
     return view('dashboard');
 })->middleware('auth')->name('dashboard');
 
-Route::controller(ProfileController::class)->middleware('auth')->name('profile.')->group(function () {
-    Route::get('/profile', 'edit')->name('edit');
-    Route::patch('/profile', 'update')->name('update');
-    Route::delete('/profile', 'destroy')->name('destroy');
+Route::controller(StudentController::class)->name('student.')->group(function () {
+    Route::get('painel-votacao', 'index')->name('index');
+    Route::get('sair', 'destroy')->name('destroy');
 });
 
-Route::get('/buttons/text', function () {
-    return view('buttons-showcase.text');
-})->middleware('auth')->name('buttons.text');
-
-Route::get('/buttons/icon', function () {
-    return view('buttons-showcase.icon');
-})->middleware('auth')->name('buttons.icon');
-
-Route::get('/buttons/text-icon', function () {
-    return view('buttons-showcase.text-icon');
-})->middleware('auth')->name('buttons.text-icon');
+Route::controller(ProfileController::class)->middleware('auth')->name('profile.')->group(function () {
+    Route::get('perfil', 'edit')->name('edit');
+    Route::patch('perfil', 'update')->name('update');
+    Route::delete('perfil', 'destroy')->name('destroy');
+});
 
 require __DIR__ . '/auth.php';

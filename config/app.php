@@ -16,7 +16,9 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'SIVE'),
+
+    'description' => 'Sistema de Votação Escolar',
 
     /*
     |--------------------------------------------------------------------------

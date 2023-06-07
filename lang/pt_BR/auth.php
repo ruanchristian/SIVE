@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Essas credenciais não foram encontradas em nossos registros.',
+    'failed' => 'Essa conta não está cadastrada no sistema, fale com o administrador.',
     'password' => 'A senha informada está incorreta.',
     'throttle' => 'Muitas tentativas de login. Tente novamente em :seconds segundos.',
 

@@ -1,0 +1,88 @@
+body {
+    background: #f6f6f6;
+}
+
+.container {
+    background: #fff;
+}
+
+.urna {
+    background: #e7e7e7;
+}
+
+.desktop {
+    border: 2px solid #cccccc;
+    background: #d7e7e7;
+}
+
+.teclas {
+    background: #6b6b6b;
+}
+
+.btn-secondary {
+    color: #fff;
+    background: #3d3d3d;
+}
+.btn-secondary:hover {
+    background: #171717;
+}
+
+.btn-branco {
+    color: #000;
+    background: #fff;
+}
+.btn-branco:hover {
+    color: #000;
+    background: #e6e6e6;
+}
+
+.btn-corrige {
+    background: #ea7e07;
+}
+.btn-corrige:hover {
+    background: #d17106;
+}
+
+.btn-confirma {
+    background: #339900;
+}
+.btn-confirma:hover {
+    background: #2b8000;
+}
+
+.btn-branco.disabled,
+.btn-branco:disabled {
+    color: #1a1a1a;
+    background: white;
+}
+
+.btn-corrige.disabled,
+.btn-corrige:disabled {
+    background: #f9972b;
+}
+
+.btn-confirma.disabled,
+.btn-confirma:disabled {
+    background: #44cc00;
+}
+
+.btn-number.disabled,
+.btn-number:disabled {
+    background: #575757;
+}
+
+#fim {
+    display: none;
+    position: relative;
+    top: -1rem;
+    left: 33px;
+    width: calc(100% - 66px);
+    height: calc(100% - 36px);
+    background: #d7e7e7;
+    z-index: 1;
+}
+
+.foto-chapa {
+    width: 100px;
+    height: 100px;
+}

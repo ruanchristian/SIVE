@@ -7,16 +7,13 @@
         'translate-y-0': scrollingUp,
     }">
 
-    <div class="flex items-center gap-3">
-        
-        
-    </div>
+    <div class="flex items-center gap-3"></div>
 
     <div class="flex items-center gap-3">
         <x-dropdown align="right" width="48">
             <x-slot name="trigger">
                 <button
-                    class="flex items-center p-2 text-sm font-medium text-gray-500 rounded-md transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none focus:ring focus:ring-green-500 focus:ring-offset-1 focus:ring-offset-white dark:focus:ring-offset-dark-eval-1 dark:text-gray-400 dark:hover:text-gray-200"
+                    class="flex items-center p-2 text-sm font-medium rounded-md transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none focus:ring focus:ring-green-500 focus:ring-offset-1 focus:ring-offset-white dark:focus:ring-offset-dark-eval-1 dark:text-gray-400 dark:hover:text-gray-200"
                 >
                     <div>{{ Auth::user()->name }}</div>
 
@@ -68,21 +65,11 @@
         'translate-y-0': scrollingUp,
     }"
 >
-    <x-button
-        type="button"
-        icon-only
-        variant="secondary"
-        sr-text="Search"
-    >
-        <x-heroicon-o-search aria-hidden="true" class="w-6 h-6" />
-    </x-button>
-
     <a href="{{ route('dashboard') }}">
-        <x-application-logo aria-hidden="true" class="w-10 h-10" />
+        <img style="width: 6rem;" src="{{ asset('img/eeepjas.svg') }}" alt="Logo da Escola">
 
         <span class="sr-only">Dashboard</span>
-    </a>
-
+    </a> 
     <x-button
         type="button"
         icon-only

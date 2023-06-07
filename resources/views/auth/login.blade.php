@@ -5,7 +5,6 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
-
             <div class="grid gap-6">
                 <!-- Email Address -->
                 <div class="space-y-2">
@@ -58,7 +57,6 @@
                     </x-form.input-with-icon-wrapper>
                 </div>
 
-                <!-- Remember Me -->
                 <div class="flex items-center justify-between">
                     <label for="remember_me" class="inline-flex items-center">
                         <input
@@ -73,29 +71,20 @@
                         </span>
                     </label>
 
-                    @if (Route::has('password.request'))
-                        <a class="text-sm text-blue-500 hover:underline" href="{{ route('password.request') }}">
-                            {{ __('Forgot your password?') }}
-                        </a>
-                    @endif
+                    <a class="text-sm text-blue-500 hover:underline" href="{{ route('student.login') }}">
+                        Entrar como estudante
+                    </a>
                 </div>
 
                 <div>
                     <x-button class="justify-center w-full gap-2">
-                        <x-heroicon-o-login class="w-6 h-6" aria-hidden="true" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                        </svg>
 
                         <span>{{ __('Log in') }}</span>
                     </x-button>
                 </div>
-
-                @if (Route::has('register'))
-                    <p class="text-sm text-gray-600 dark:text-gray-400">
-                        {{ __('Don’t have an account?') }}
-                        <a href="{{ route('register') }}" class="text-blue-500 hover:underline">
-                            {{ __('Register') }}
-                        </a>
-                    </p>
-                @endif
             </div>
         </form>
     </x-auth-card>
