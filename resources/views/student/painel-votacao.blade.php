@@ -41,14 +41,14 @@
             </div>
         </div>
 
-        <div class="col-12 my-4 urna">
+        <div class="col-12 my-4 urna rounded">
             <div class="row">
                 <div class="col-md-6">
                     <div class="row desktop py-4 m-3">
                         <div id="fim" class="text-center">
                             <h1 class="mt-5">FIM</h1>
                             <p class="my-3 mx-4">Seu voto foi contabilizado.</p>
-                            <p class="my-3 mx-4 font-weight-bold">O próximo eleitor poderá votar em 5 segundos...</p>
+                            <p class="my-3 mx-4 font-weight-bold">O próximo eleitor poderá votar em <span id="count">5</span> segundos...</p>
                         </div>
                         <div class="content">
                             <div class="col-12">
@@ -129,9 +129,9 @@
     <audio id="confirma" src="{{ asset('audios/confirma.mp3') }}"></audio>
     <audio id="tecla" src="{{ asset('audios/typing.mp3') }}"></audio>
 
-    <div class="text-center p-4 bg-light">
+    <div class="text-center fixed-bottom p-3 bg-light">
         Developed by:
-        <u class="text-reset fw-bold" href="https://mdbootstrap.com/">Ruan Christian</u> Ⲫ
+        <u class="text-reset fw-bold">Ruan Christian</u> Ⲫ
     </div>
 </body>
 

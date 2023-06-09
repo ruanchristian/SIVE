@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('elections', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 20)->unique();
-            $table->boolean('active');
+            $table->year('year')->unique();
+            $table->boolean('active')->default(true);
+            $table->timestamp('created');
         });
     }
 

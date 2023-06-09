@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name', 30)->unique();
             $table->string('number', 2);
-            $table->string('image', 40)->default('storage/noimage.png');
+            $table->string('image', 30)->default('img/default.png');
+            $table->foreignId('election_id')->constrained('elections')->onDelete('cascade');
         });
     }
 

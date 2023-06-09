@@ -14,4 +14,8 @@ class Candidate extends Model {
     public function votes() {
         return $this->hasMany(Vote::class);
     }
+
+    public function election() {
+        return $this->belongsTo(Election::class);
+    }
 }
