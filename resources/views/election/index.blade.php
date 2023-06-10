@@ -5,7 +5,9 @@
                 {{ isset($election) ? 'Editar eleição de '.$election->year : 'Crie uma nova eleição' }}
             </h2>
 
-            <a class="text-blue-600 hover:underline" href="">Cadastre aqui as chapas</a>
+            @isset($election)
+                <a class="text-blue-600 hover:underline" href="{{ route('candidate.index', $election) }}">Cadastrar as chapas</a>
+            @endisset
         </div>
     </x-slot>
 
