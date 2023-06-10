@@ -12,7 +12,9 @@ use App\Models\{
 class StudentController extends Controller {
 
     public function index() {
-        if (!session('student')) return redirect('/');
+        if(!session('student')) return redirect('/');
+
+        $chapas = Candidate::all();
 
         return view('student.painel-votacao', compact('chapas'));
     }

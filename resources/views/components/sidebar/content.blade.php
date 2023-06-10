@@ -14,19 +14,16 @@
     </div>
 
     <x-sidebar.dropdown title="Eleições" :active="Str::startsWith(
-        request()
-            ->route()
-            ->uri(),
-        'eleicoes.',
+        Route::currentRouteName(), 'election',
     )">
 
         <x-slot name="icon">
             <x-heroicon-o-academic-cap class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </x-slot>
 
-        <x-sidebar.sublink title="Cadastrar eleições" href="/" :isActive="request()->routeIs('election.index')"></x-sidebar.sublink>
+        <x-sidebar.sublink title="Cadastrar eleições" href="{{ route('election.index') }}" :isActive="request()->routeIs('election.index')"></x-sidebar.sublink>
 
-        <x-sidebar.sublink title="Editar eleições" href="/" :isActive="request()->routeIs('election.index')"></x-sidebar.sublink>
+        <x-sidebar.sublink title="Ver eleições" href="{{ route('election.seeall') }}" :isActive="request()->routeIs('election.seeall')"></x-sidebar.sublink>
     </x-sidebar.dropdown>
 
     <x-sidebar.dropdown title="Usuários" :active="Str::startsWith(
