@@ -13,6 +13,14 @@
         Funções do sistema
     </div>
 
+    <x-sidebar.link title="Chapas" href="{{ route('candidate.seeall') }}" :isActive="Str::startsWith(
+        Route::currentRouteName(), 'candidate',
+    )">
+        <x-slot name="icon">
+            <x-heroicon-o-user-group class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+        </x-slot>
+    </x-sidebar.link>
+
     <x-sidebar.dropdown title="Eleições" :active="Str::startsWith(
         Route::currentRouteName(), 'election',
     )">

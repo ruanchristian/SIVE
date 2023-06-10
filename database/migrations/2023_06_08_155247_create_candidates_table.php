@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 30)->unique();
-            $table->string('number', 2);
-            $table->string('image', 30)->default('img/default.png');
+            $table->string('name', 30);
+            $table->string('number', 2)->unique();
+            $table->string('image', 70);
             $table->foreignId('election_id')->constrained('elections')->onDelete('cascade');
         });
     }

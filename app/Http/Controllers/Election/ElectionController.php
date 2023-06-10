@@ -16,7 +16,7 @@ class ElectionController extends Controller {
     }
     
     public function visualizar(): View {
-        $elections = Election::all()->sortDesc();
+        $elections = Election::orderByDesc('active')->orderBy('year')->paginate(5);
 
         return view('election.visualizar', compact('elections'));
     }
