@@ -28,7 +28,7 @@
                                             <div class="mr-2">
                                                 <img width="28" height="28" src="{{ asset($chapa->image) }}" alt="Logo: {{ $chapa->name }}">
                                             </div>
-                                            <span class="font-medium font-semibold">{{ $chapa->name }}</span>
+                                            <span class="font-medium">{{ $chapa->name }}</span>
                                         </div>
                                     </th>
                                     <td class="py-3 px-6 text-left">{{ $chapa->number }}</th>

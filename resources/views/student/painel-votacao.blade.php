@@ -30,14 +30,12 @@
     <div class="container mt-3 mb-3 py-3">
         <div class="col-12">
             <div class="row">
-                <h5 class="col-12 text-center font-weight-bold mb-4">Candidatos ao Grêmio Estudantil -
-                    {{ date('Y') }}</h5>
+                <h5 class="col-12 text-center font-weight-bold mb-4">Candidatos ao Grêmio Estudantil - {{ $eleicao->year }}</h5>
+                @foreach ($chapas as $chapa)
                 <div class="col-4 text-center">
-                    <span class="d-block">Conexão Jovem - <b>19</b></span>
+                    <span class="d-block">{{ $chapa->name }} - <b>{{ $chapa->number }}</b></span>
                 </div>
-                <div class="col-4 text-center">
-                    <span class="d-block">Mandacaru - <b>15</b></span>
-                </div>
+                @endforeach
             </div>
         </div>
 
@@ -128,6 +126,8 @@
     </div>
     <audio id="confirma" src="{{ asset('audios/confirma.mp3') }}"></audio>
     <audio id="tecla" src="{{ asset('audios/typing.mp3') }}"></audio>
+    <input type="hidden" id="rota" data-urlsearch="{{ route('student.buscar-chapa', $eleicao) }}"
+    data-urlsavevote="{{ route('student.vote', $eleicao) }}" data-stdid="{{ session('student.id') }}">
 
     <div class="text-center fixed-bottom p-3 bg-light">
         Developed by:
