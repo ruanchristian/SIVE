@@ -55,7 +55,11 @@
                                                     <td class="py-3 px-6 text-left">{{ $eleicao->candidates->count() }}</th>
                                                     <th class="py-3 px-6 text-center">{{ date('d/m/Y', strtotime($eleicao->created)) }}</th>
                                                     <td class="py-3 px-6 text-center">
-                                                        <x-button href="{{ route('student.urna', $eleicao->id) }}" size="sm">Votar</x-button>
+                                                        @if ($eleicao->hasVoted)
+                                                            <span class="text-green-600 font-semibold">Você já votou ✓</span>
+                                                        @else
+                                                        <x-button href="{{ route('student.urna', $eleicao->id) }}" size="sm" disabled="true">Votar</x-button>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @empty
@@ -74,5 +78,9 @@
             </div>
         </div>
     </div>
+
+    @if (session()->has('error'))
+        <script>alert("{{ session('error') }}");</script>
+    @endif
 </body>
 </html>

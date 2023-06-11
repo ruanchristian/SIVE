@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 
 use App\Models\{
-    Candidate,
     Election,
     Student,
     Vote
@@ -22,6 +21,10 @@ class StudentController extends Controller {
         if(!session('student')) return redirect('/');
 
         $eleicoes = Election::where('active', 1)->get();
+        $eleicoes = $eleicoes->map(function ($eleicao) {
+            $eleicao->hasVoted = $this->hasVoted($eleicao);
+            return $eleicao;
+        });
 
         return view('student.index', compact('eleicoes'));
     }
@@ -31,6 +34,9 @@ class StudentController extends Controller {
 
         $eleicao = Election::findOrFail($id);
         if(!$eleicao->active) return to_route('student.index');
+        
+        if ($this->hasVoted($eleicao)) 
+                return to_route('student.index')->with('error', 'Você já votou nessa eleição.');
 
         $chapas = $eleicao->candidates;
 
@@ -44,7 +50,7 @@ class StudentController extends Controller {
 
         Vote::create([
             'candidate_id' => $chapa->id ?? null,
-            'student_id' => $request->stdid,
+            'student_id' => $student->id,
             'election_id' => $election->id
         ]);
     }
@@ -81,5 +87,9 @@ class StudentController extends Controller {
         session()->flush();
 
         return to_route('student.login');
+    }
+
+    private function hasVoted(Election $eleicao) {
+        return Vote::where('student_id', session('student.id'))->where('election_id', $eleicao->id)->first() !== null;
     }
 }

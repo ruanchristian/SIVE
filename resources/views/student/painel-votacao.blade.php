@@ -8,10 +8,20 @@
 
     <title>Tela de Votação - {{ config('app.name', 'SIVE') }}</title>
 
-    <!-- Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet" />
+    {{-- Bootstrap --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+    </script>
+
+    <link rel="preload" href="{{ asset('css/urna.css') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ asset('css/urna.css') }}">
+    </noscript>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
 </head>
 
 <body class="font-sans">
@@ -21,20 +31,19 @@
                 <img width="45rem" src="{{ asset('img/eeepjas.svg') }}">
                 Sistema de Votação Escolar
             </span>
-            <form class="d-flex">
-                <span>Bem vindo(a): <strong>{{ session('student.name') }}</strong></span>
-            </form>
+            <span class="d-flex">Bem vindo(a): <strong>{{ session('student.name') }}</strong></span>
         </div>
     </nav>
 
     <div class="container mt-3 mb-3 py-3">
         <div class="col-12">
             <div class="row">
-                <h5 class="col-12 text-center font-weight-bold mb-4">Candidatos ao Grêmio Estudantil - {{ $eleicao->year }}</h5>
+                <h5 class="col-12 text-center font-weight-bold mb-4">Candidatos ao Grêmio Estudantil -
+                    {{ $eleicao->year }}</h5>
                 @foreach ($chapas as $chapa)
-                <div class="col-4 text-center">
-                    <span class="d-block">{{ $chapa->name }} - <b>{{ $chapa->number }}</b></span>
-                </div>
+                    <div class="col-4 text-center">
+                        <span class="d-block">{{ $chapa->name }} - <b>{{ $chapa->number }}</b></span>
+                    </div>
                 @endforeach
             </div>
         </div>
@@ -46,7 +55,8 @@
                         <div id="fim" class="text-center">
                             <h1 class="mt-5">FIM</h1>
                             <p class="my-3 mx-4">Seu voto foi contabilizado.</p>
-                            <p class="my-3 mx-4 font-weight-bold">O próximo eleitor poderá votar em <span id="count">5</span> segundos...</p>
+                            <p class="my-3 mx-4 font-weight-bold">O próximo eleitor poderá votar em <span
+                                    id="count">5</span> segundos...</p>
                         </div>
                         <div class="content">
                             <div class="col-12">
@@ -127,20 +137,13 @@
     <audio id="confirma" src="{{ asset('audios/confirma.mp3') }}"></audio>
     <audio id="tecla" src="{{ asset('audios/typing.mp3') }}"></audio>
     <input type="hidden" id="rota" data-urlsearch="{{ route('student.buscar-chapa', $eleicao) }}"
-    data-urlsavevote="{{ route('student.vote', $eleicao) }}" data-stdid="{{ session('student.id') }}">
+        data-urlsavevote="{{ route('student.vote', $eleicao) }}" data-stdid="{{ session('student.id') }}">
 
     <div class="text-center fixed-bottom p-3 bg-light">
         Developed by:
         <u class="text-reset fw-bold">Ruan Christian</u> Ⲫ
     </div>
 </body>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
-</script>
-<link rel="stylesheet" href="{{ asset('css/urna.css') }}">
 
 <script src="{{ asset('jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('js/urna.js') }}"></script>
