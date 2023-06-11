@@ -36,8 +36,11 @@ Route::controller(ProfileController::class)->middleware('auth')->name('profile.'
 });
 
 Route::controller(StudentController::class)->name('student.')->group(function () {
-    Route::get('painel-votacao', 'index')->name('index');
+    Route::get('eleicoes', 'index')->name('index');
+    Route::get('urna/{id}', 'urna')->name('urna');
+    Route::get('buscar-chapa/{election}', 'buscarChapa')->name('buscar-chapa');
     Route::get('sair', 'destroy')->name('destroy');
+    Route::post('salvar/{election}', 'salvarVoto')->name('vote');
 });
 
 require __DIR__ . '/auth.php';

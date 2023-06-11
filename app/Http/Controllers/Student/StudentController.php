@@ -3,20 +3,56 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+
 use App\Models\{
-    Candidate,
-    Student
+    Election,
+    Student,
+    Vote
+};
+use Illuminate\Http\{
+    RedirectResponse,
+    Request
 };
 
 class StudentController extends Controller {
 
-    public function index() {
+    public function index(): View|RedirectResponse {
         if(!session('student')) return redirect('/');
 
-        $chapas = Candidate::all();
+        $eleicoes = Election::where('active', 1)->get();
+        $eleicoes = $eleicoes->map(function ($eleicao) {
+            $eleicao->hasVoted = $this->hasVoted($eleicao);
+            return $eleicao;
+        });
 
-        return view('student.painel-votacao', compact('chapas'));
+        return view('student.index', compact('eleicoes'));
+    }
+
+    public function urna(int $id) {
+        if(!session('student')) return redirect('/');
+
+        $eleicao = Election::findOrFail($id);
+        if(!$eleicao->active) return to_route('student.index');
+        
+        if ($this->hasVoted($eleicao)) 
+                return to_route('student.index')->with('error', 'Você já votou nessa eleição.');
+
+        $chapas = $eleicao->candidates;
+
+        return view('student.painel-votacao', compact('eleicao', 'chapas'));
+    }
+
+    public function salvarVoto(Request $request, Election $election) {
+        $chapa = $election->candidates()->where('number', $request->number)->first();
+
+        if (!$student = Student::find($request->stdid)) return response(null, 404);
+
+        Vote::create([
+            'candidate_id' => $chapa->id ?? null,
+            'student_id' => $student->id,
+            'election_id' => $election->id
+        ]);
     }
     
     public function login(Request $request) {
@@ -39,9 +75,21 @@ class StudentController extends Controller {
         return to_route('student.index');
     }
 
+    public function buscarChapa(Request $request, Election $election) {
+        $chapa = $election->candidates()->where('number', $request->number)->first();
+
+        if (!$chapa) return response(null, 404);
+
+        return response()->json($chapa);
+    }
+
     public function destroy() {
         session()->flush();
 
         return to_route('student.login');
+    }
+
+    private function hasVoted(Election $eleicao) {
+        return Vote::where('student_id', session('student.id'))->where('election_id', $eleicao->id)->first() !== null;
     }
 }
