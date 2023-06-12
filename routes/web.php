@@ -17,6 +17,7 @@ Route::controller(ElectionController::class)->middleware('auth')->name('election
     Route::get('editar-eleicao/{id}', 'index')->name('edit');
     Route::get('visualizar', 'visualizar')->name('seeall');
     Route::get('acompanhar-votacao/{id}/{ajax?}', 'acompanhar')->name('result');
+    Route::get('salvar-resultado/{election}', 'pagina_impressao')->name('print');
     Route::post('criar-eleicao', 'store')->name('store');
     Route::put('editar-eleicao/{id}', 'update')->name('update');
 });

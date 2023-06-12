@@ -20,7 +20,7 @@ class StudentController extends Controller {
     public function index(): View|RedirectResponse {
         if(!session('student')) return redirect('/');
 
-        $eleicoes = Election::where('active', 1)->get();
+        $eleicoes = Election::where('active', 1)->orderByDesc('year')->get();
         $eleicoes = $eleicoes->map(function ($eleicao) {
             $eleicao->hasVoted = $this->hasVoted($eleicao);
             return $eleicao;
@@ -44,9 +44,10 @@ class StudentController extends Controller {
     }
 
     public function salvarVoto(Request $request, Election $election) {
+        if (!$election->active || !$student = Student::find($request->stdid)) 
+            return response('Erro ao salvar o voto!', 404);
+       
         $chapa = $election->candidates()->where('number', $request->number)->first();
-
-        if (!$student = Student::find($request->stdid)) return response(null, 404);
 
         Vote::create([
             'candidate_id' => $chapa->id ?? null,
@@ -76,9 +77,8 @@ class StudentController extends Controller {
     }
 
     public function buscarChapa(Request $request, Election $election) {
-        $chapa = $election->candidates()->where('number', $request->number)->first();
-
-        if (!$chapa) return response(null, 404);
+        if (!$chapa = $election->candidates()->where('number', $request->number)->first()) 
+            return response(null, 404);
 
         return response()->json($chapa);
     }

@@ -17,9 +17,11 @@
 
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1 mb-4">
         @if ($election->candidates->isNotEmpty())
-            <h3 class="text-lg font-semibold leading-tight mb-4">Ranking {{ $election->active ? 'em tempo real' : '' }}
-            </h3>
+            <h3 class="text-lg font-semibold leading-tight mb-4">Ranking {{ $election->active ? 'em tempo real' : '' }}</h3>
             <ol class="pl-4" id="ranking-list"></ol>
+            @if (!$election->active) 
+                <x-button href="{{ route('election.print', $election) }}" class="mt-4" size="sm">Imprimir resultado final</x-button> 
+            @endif
         @else
             <span class="text-red-500">Não há chapas cadastradas para essa eleição.</span>
             <a class="text-blue-500 hover:underline" href="{{ route('candidate.index', $election) }}">Clique aqui para cadastrar</a>

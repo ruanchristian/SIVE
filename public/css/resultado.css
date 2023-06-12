@@ -1,0 +1,19 @@
+.chart-container {
+    margin: 0 auto;
+    width: 400px;
+    height: 400px;
+}
+
+.chart-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.chart-info {
+    margin-top: 20px;
+}
+
+.info-item {
+    margin-bottom: 5px;
+}

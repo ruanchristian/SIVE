@@ -71,7 +71,11 @@ class ElectionController extends Controller {
         ]);
         
         $election->update($request->all());
-
+        
         return back()->with('success', 'Eleição editada com sucesso!');
+    }
+
+    public function pagina_impressao(Election $election): View {
+        return view('election.resultado-impressao', compact('election'));
     }
 }

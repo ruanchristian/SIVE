@@ -53,8 +53,5 @@ function atualizarGraficos(resp) {
     window.barChart.update();
     window.donutChart.update();
 }
-
-if ($('#elecId').data('isactive') == 1) {
-    atualizar();
-    setInterval(atualizar, 5000);
-}
+atualizar();
+if ($('#elecId').data('isactive') == 1) setInterval(atualizar, 5000);

@@ -93,7 +93,7 @@ $(document).ready(() => {
             }, 5000);
 
             confirmAudio[0].play();
-        }).fail(function () {alert("Falha ao salvar o voto.");});
+        }).fail(function (msg) {alert(msg);});
     });
 
     function disableF5(e) {
