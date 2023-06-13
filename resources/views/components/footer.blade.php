@@ -5,6 +5,6 @@
         <span class="bg-gray-200 underline">
             Ruan Christian
         </span>        
-        Ⲫ
+        ©
     </p>
 </footer>

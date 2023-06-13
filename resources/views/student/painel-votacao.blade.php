@@ -141,7 +141,7 @@
 
     <div class="text-center fixed-bottom p-3 bg-light">
         Developed by:
-        <u class="text-reset fw-bold">Ruan Christian</u> Ⲫ
+        <u class="text-reset fw-bold">Ruan Christian</u> ©
     </div>
 </body>
 

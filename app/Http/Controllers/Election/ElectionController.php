@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Election;
 
 use App\Http\Controllers\Controller;
 use App\Models\Election;
+use App\Models\Vote;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -21,10 +22,30 @@ class ElectionController extends Controller {
         return view('election.visualizar', compact('elections'));
     }
 
-    public function acompanhar(int $id): View {
+    public function acompanhar(int $id, bool $ajax = false) {
         $election = Election::findOrFail($id);
+        $candidates = $election->candidates->pluck('name')->toArray();
 
-        return view('election.apuracao', compact('election'));
+        $votes = [];
+        foreach ($election->candidates as $candidate)
+            array_push($votes, $candidate->votes->count());
+
+        $white = Vote::where('election_id', $election->id)->count() - array_sum($votes);
+        array_push($votes, $white);
+        array_push($candidates, 'Branco/Nulo');
+
+        if ($ajax) {
+            $rank = array_map(function ($chapa, $votos) {
+                return [
+                    'chapa' => $chapa,
+                    'votos' => $votos
+                ];
+            }, $candidates, $votes);
+            
+            return response()->json($rank);
+        }
+
+        return view('election.apuracao', compact('election', 'votes', 'candidates'));
     }
 
     public function store(Request $request) {
@@ -50,7 +71,11 @@ class ElectionController extends Controller {
         ]);
         
         $election->update($request->all());
-
+        
         return back()->with('success', 'Eleição editada com sucesso!');
+    }
+
+    public function pagina_impressao(Election $election): View {
+        return view('election.resultado-impressao', compact('election'));
     }
 }
