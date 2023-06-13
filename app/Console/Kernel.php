@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Models\Election;
+use App\Services\SendRanking;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -10,9 +12,12 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
-    protected function schedule(Schedule $schedule): void
-    {
-        // $schedule->command('inspire')->hourly();
+    protected function schedule(Schedule $schedule): void {
+        $election = Election::where('active', 1)->first();
+
+        $schedule->call(new SendRanking($election))
+                    ->everyThirtyMinutes()
+                    ->between('8:30', '12:30');
     }
 
     /**
@@ -20,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
