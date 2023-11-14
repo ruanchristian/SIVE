@@ -29,6 +29,10 @@ class StudentController extends Controller {
         return view('student.index', compact('eleicoes'));
     }
 
+    public function cadastrar(): View {
+        return view('student.criar');
+    }
+
     public function urna(int $id) {
         if(!session('student')) return redirect('/');
 
@@ -76,6 +80,25 @@ class StudentController extends Controller {
         return to_route('student.index');
     }
 
+    // TODO: Criar uma StudentRequest pra validação de dados.
+    public function store(Request $request) {
+        $request->validate([
+            'name' => 'required|string|min:3|max:45',
+            'registration_number' => 'required|numeric|min:1|unique:students'
+        ], [
+            'registration_number.required' => 'O número de matrícula é obrigatório.',
+            'registration_number.min' => 'A matrícula deve ser maior ou igual a 1.',
+            'registration_number.unique' => 'Já existe estudante com esta matrícula. Tente novamente.'
+        ]);
+
+        Student::create([
+            'name' => $request->name,
+            'registration_number' => $request->registration_number
+        ]);
+
+        return back()->withSuccess('Estudante cadastrado com sucesso!');
+    }
+
     public function buscarChapa(Request $request, Election $election) {
         if (!$chapa = $election->candidates()->where('number', $request->number)->first()) 
             return response(null, 404);
@@ -85,7 +108,6 @@ class StudentController extends Controller {
 
     public function destroy() {
         session()->flush();
-
         return to_route('student.login');
     }
 

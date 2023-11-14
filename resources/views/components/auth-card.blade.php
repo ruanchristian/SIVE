@@ -1,9 +1,9 @@
 <main class="flex flex-col items-center flex-1 px-4 pt-6 sm:justify-center">
     <div>
-        <img style="width: 9rem;" src="{{ asset('img/eeepjas.svg') }}" alt="Logo da Escola">
+        <img title="{{ config('app.description') }}" style="width: 9rem;" src="{{ asset('img/logo.png') }}" alt="Logo do Sistema">
 
         <h1 class="text-center">
-            <strong class="hover:underline" title="{{ config('app.description') }}" style="font-size: 1.5rem;">{{ config('app.name') }}</strong>
+            {{-- <strong class="hover:underline" title="{{ config('app.description') }}" style="font-size: 1.5rem;">{{ config('app.name') }}</strong> --}}
             @if(Route::currentRouteName() == 'student.login')
                 <p>Entre para votar!</p>
             @endif

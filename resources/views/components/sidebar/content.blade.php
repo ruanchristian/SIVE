@@ -13,28 +13,26 @@
         Funções do sistema
     </div>
 
-    <x-sidebar.link title="Chapas" href="{{ route('candidate.seeall') }}" :isActive="Str::startsWith(
-        Route::currentRouteName(), 'candidate',
-    )">
+    <x-sidebar.link title="Chapas" href="{{ route('candidate.seeall') }}" :isActive="Str::startsWith(Route::currentRouteName(), 'candidate')">
         <x-slot name="icon">
             <x-heroicon-o-user-group class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </x-slot>
     </x-sidebar.link>
 
-    <x-sidebar.dropdown title="Eleições" :active="Str::startsWith(
-        Route::currentRouteName(), 'election',
-    )">
+    <x-sidebar.dropdown title="Eleições" :active="Str::startsWith(Route::currentRouteName(), 'election')">
 
         <x-slot name="icon">
             <x-heroicon-o-academic-cap class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </x-slot>
 
-        <x-sidebar.sublink title="Cadastrar eleições" href="{{ route('election.index') }}" :isActive="request()->routeIs('election.index')"></x-sidebar.sublink>
+        <x-sidebar.sublink title="Cadastrar eleições" href="{{ route('election.index') }}"
+            :isActive="request()->routeIs('election.index')"></x-sidebar.sublink>
 
-        <x-sidebar.sublink title="Ver eleições" href="{{ route('election.seeall') }}" :isActive="request()->routeIs('election.seeall')"></x-sidebar.sublink>
+        <x-sidebar.sublink title="Ver eleições" href="{{ route('election.seeall') }}"
+            :isActive="request()->routeIs('election.seeall')"></x-sidebar.sublink>
     </x-sidebar.dropdown>
 
-    <x-sidebar.dropdown title="Usuários" :active="Str::startsWith(
+    {{-- <x-sidebar.dropdown title="Usuários" :active="Str::startsWith(
         request()
             ->route()
             ->uri(),
@@ -48,5 +46,11 @@
         <x-sidebar.sublink title="Ver usuários" href="/" :isActive="request()->routeIs('user.index')"></x-sidebar.sublink>
 
         <x-sidebar.sublink title="Cadastrar usuários" href="/" :isActive="request()->routeIs('user.create')"></x-sidebar.sublink>
-    </x-sidebar.dropdown>
+    </x-sidebar.dropdown> --}}
+
+    <x-sidebar.link title="Cadastrar estudantes" href="{{ route('student.create') }}" :isActive="Str::startsWith(Route::currentRouteName(), 'student.create')">
+        <x-slot name="icon">
+            <x-heroicon-o-user-add class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+        </x-slot>
+    </x-sidebar.link>
 </x-perfect-scrollbar>

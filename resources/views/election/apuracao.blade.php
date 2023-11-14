@@ -36,7 +36,7 @@
         </div>
 
         <div>
-            <div class="bg-white rounded-lg shadow-lg ">
+            <div class="bg-white rounded-lg shadow-lg">
                 <canvas height="300px" id="grafico2"></canvas>
             </div>
         </div>
@@ -53,15 +53,15 @@
     <script>
         const donutCanvas = $('#grafico1').get(0).getContext('2d');
         const barCanvas = $('#grafico2').get(0).getContext('2d');
-        const chapas = {!! json_encode($candidates, JSON_HEX_TAG) !!};
-        const votos = {!! json_encode($votes, JSON_HEX_TAG) !!};
+        const chapas = {!! json_encode(array_column($ranking->toArray(), 'name')) !!};
+        const votos = {!! json_encode(array_column($ranking->toArray(), 'votes_count')) !!};
 
         window.barChart = new Chart(barCanvas, {
             type: 'bar',
             data: {
                 labels: chapas,
                 datasets: [{
-                    label: 'Votos',
+                    label: 'Qtd de votos',
                     data: votos,
                     borderWidth: 1
                 }]
@@ -77,7 +77,7 @@
             data: {
                 labels: chapas,
                 datasets: [{
-                    label: 'Votos',
+                    label: 'Qtd de votos',
                     data: votos,
                     borderWidth: 1
                 }]

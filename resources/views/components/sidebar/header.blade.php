@@ -1,11 +1,7 @@
 <div class="flex items-center justify-between flex-shrink-0 px-3">
     <!-- Logo -->
-    <span
-        class="inline-flex items-center gap-2"
-        title="Logo da escola EEEP Dr. José Alves da Silveira"
-    >
-        <img style="width: 5.5rem;" src="{{ asset('img/eeepjas.svg') }}" alt="Logo da Escola">
-
+    <span class="inline-flex items-center gap-2" title="{{ config('app.description') }}" >
+        <img style="width: 5.5rem;" src="{{ asset('img/logo.png') }}" alt="Logo do Sistema">
         <span class="sr-only">Dashboard</span>
     </span>
 

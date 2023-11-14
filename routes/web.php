@@ -26,7 +26,7 @@ Route::controller(CandidateController::class)->middleware('auth')->name('candida
     Route::get('criar-chapa/{election?}', 'index')->name('index');
     Route::get('editar-chapa/{id}', 'edit')->name('edit');
     Route::get('chapas', 'visualizar')->name('seeall');
-    Route::post('criar-chapa{election}', 'store')->name('store');
+    Route::post('criar-chapa/{election}', 'store')->name('store');
     Route::put('editar-chapa/{id}', 'update')->name('update');
 });
 
@@ -41,6 +41,8 @@ Route::controller(StudentController::class)->name('student.')->group(function ()
     Route::get('urna/{id}', 'urna')->name('urna');
     Route::get('buscar-chapa/{election}', 'buscarChapa')->name('buscar-chapa');
     Route::get('sair', 'destroy')->name('destroy');
+    Route::get('cadastrar', 'cadastrar')->name('create');
+    Route::post('criar', 'store')->name('save-student');
     Route::post('salvar/{election}', 'salvarVoto')->name('vote');
 });
 
