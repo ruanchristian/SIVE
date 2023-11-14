@@ -8,9 +8,8 @@ function atualizar() {
             const rankingList = $('#ranking-list');
             const newRankingList = $('<ul>');
 
-            response.sort((x, y) => y.votos - x.votos);
             rankingList.children().each(function (index, listItem) {
-            const newIndex = response.findIndex(item => item.chapa === $(listItem).text().split(":")[0].trim());
+            const newIndex = response.findIndex(item => item.name === $(listItem).text().split(":")[0].trim());
 
             if (newIndex !== -1) {
                 gsap.to(listItem, { y: (newIndex - index) * $(listItem).outerHeight() });
@@ -28,14 +27,14 @@ function atualizar() {
         });
 
         response.forEach((item, index) => {
-            let existingItem = rankingList.find(`li:contains("${item.chapa}:")`);
+            let existingItem = rankingList.find(`li:contains("${item.name}:")`);
 
             if (existingItem.length === 0) {            
-                let listItem = $('<li>').html(`<b>${item.chapa}</b>: ${item.votos} votos`).css({ opacity: 0 });
+                let listItem = $('<li>').html(`<b>${item.name}</b>: ${item.votes_count} votos`).css({ opacity: 0 });
                 newRankingList.append(listItem);
                 gsap.to(listItem, { opacity: 1, duration: 0.5, delay: index * 0.1 });
             } else 
-                existingItem.html(`<b>${item.chapa}</b>: ${item.votos} votos`);
+                existingItem.html(`<b>${item.name}</b>: ${item.votes_count} votos`);
         });
         rankingList.append(newRankingList.children());
         atualizarGraficos(response);
@@ -45,10 +44,10 @@ function atualizar() {
 }
 
 function atualizarGraficos(resp) {
-    window.barChart.data.labels = resp.map(r => r.chapa);
-    window.barChart.data.datasets[0].data = resp.map(r => r.votos);
-    window.donutChart.data.labels = resp.map(r => r.chapa);
-    window.donutChart.data.datasets[0].data = resp.map(r => r.votos);
+    window.barChart.data.labels = resp.map(r => r.name);
+    window.barChart.data.datasets[0].data = resp.map(r => r.votes_count);
+    window.donutChart.data.labels = resp.map(r => r.name);
+    window.donutChart.data.datasets[0].data = resp.map(r => r.votes_count);
 
     window.barChart.update();
     window.donutChart.update();

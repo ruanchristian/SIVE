@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Election;
 use App\Http\Controllers\Controller;
 use App\Models\Election;
 use App\Models\Vote;
+use App\Services\ElectionRanking;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -24,28 +25,15 @@ class ElectionController extends Controller {
 
     public function acompanhar(int $id, bool $ajax = false) {
         $election = Election::findOrFail($id);
-        $candidates = $election->candidates->pluck('name')->toArray();
+        $rankService = new ElectionRanking($election);
+        $ranking = $rankService->getCandidatesWithVotes();
 
-        $votes = [];
-        foreach ($election->candidates as $candidate)
-            array_push($votes, $candidate->votes->count());
+        $notCountable = Vote::where('election_id', $election->id)->count() - $ranking->sum('votes_count');
+        $ranking->push(['name' => 'Branco/Nulo', 'votes_count' => $notCountable]);
 
-        $white = Vote::where('election_id', $election->id)->count() - array_sum($votes);
-        array_push($votes, $white);
-        array_push($candidates, 'Branco/Nulo');
+        if ($ajax) return response()->json($ranking);
 
-        if ($ajax) {
-            $rank = array_map(function ($chapa, $votos) {
-                return [
-                    'chapa' => $chapa,
-                    'votos' => $votos
-                ];
-            }, $candidates, $votes);
-            
-            return response()->json($rank);
-        }
-
-        return view('election.apuracao', compact('election', 'votes', 'candidates'));
+        return view('election.apuracao', compact('election', 'ranking'));
     }
 
     public function store(Request $request) {
@@ -76,6 +64,11 @@ class ElectionController extends Controller {
     }
 
     public function pagina_impressao(Election $election): View {
-        return view('election.resultado-impressao', compact('election'));
+        $rankService = new ElectionRanking($election);
+        $candidates = $rankService->getCandidatesWithVotes();
+        $maxPercentage = $rankService->calculatePercentageByCandidate($candidates[0]);
+        $notCountable = Vote::where('election_id', $election->id)->count() - $candidates->sum('votes_count');
+        
+        return view('election.resultado-impressao', compact('election', 'candidates', 'maxPercentage', 'notCountable'));
     }
 }

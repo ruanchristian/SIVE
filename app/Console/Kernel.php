@@ -3,7 +3,7 @@
 namespace App\Console;
 
 use App\Models\Election;
-use App\Services\SendRanking;
+use App\Services\ElectionRanking;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,9 +15,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void {
         $election = Election::where('active', 1)->first();
 
-        $schedule->call(new SendRanking($election))
+        $schedule->call(new ElectionRanking($election))//->everyMinute();
                     ->everyThirtyMinutes()
-                    ->between('8:30', '12:30');
+                    ->between('8:30', '15:00');
     }
 
     /**

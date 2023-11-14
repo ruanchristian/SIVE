@@ -28,7 +28,7 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <span class="navbar-brand">
-                <img width="45rem" src="{{ asset('img/eeepjas.svg') }}">
+                <img width="60rem" src="{{ asset('img/logo.png') }}">
                 Sistema de Votação Escolar
             </span>
             <span class="d-flex">Bem vindo(a): <strong>{{ session('student.name') }}</strong></span>
