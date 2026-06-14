@@ -9,7 +9,7 @@ class Candidate extends Model {
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = ['name', 'image'];
+    protected $fillable = ['name', 'number', 'image'];
 
     public function votes() {
         return $this->hasMany(Vote::class);

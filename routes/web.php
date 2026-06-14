@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\BotConfig\BotConfigController;
 use App\Http\Controllers\Candidate\CandidateController;
 use App\Http\Controllers\Election\ElectionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\StudentController;
+use App\Models\BotConfig;
 
 Route::get('/', function () {return to_route('login');});
 
@@ -12,14 +14,21 @@ Route::get('painel', function () {
     return view('dashboard');
 })->middleware('auth')->name('dashboard');
 
-Route::controller(ElectionController::class)->middleware('auth')->name('election.')->group(function () {
-    Route::get('criar-eleicao', 'index')->name('index');
-    Route::get('editar-eleicao/{id}', 'index')->name('edit');
-    Route::get('visualizar', 'visualizar')->name('seeall');
-    Route::get('acompanhar-votacao/{id}/{ajax?}', 'acompanhar')->name('result');
-    Route::get('salvar-resultado/{election}', 'pagina_impressao')->name('print');
-    Route::post('criar-eleicao', 'store')->name('store');
-    Route::put('editar-eleicao/{id}', 'update')->name('update');
+Route::middleware('auth')->name('election.')->group(function () {
+    // Rota para visualizar o modal de confirmação de exclusão
+    Route::get('election/{id}/confirm-delete', [ElectionController::class, 'delete'])->name('confirmDelete');
+
+    // Rota para confirmar e efetuar a exclusão da eleição
+    Route::delete('election/{id}', [ElectionController::class, 'confirmDelete'])->name('confirmDeletePost');
+    
+    // Suas outras rotas existentes...
+    Route::get('criar-eleicao', [ElectionController::class, 'index'])->name('index');
+    Route::get('editar-eleicao/{id}', [ElectionController::class, 'index'])->name('edit');
+    Route::get('visualizar', [ElectionController::class, 'visualizar'])->name('seeall');
+    Route::get('acompanhar-votacao/{id}/{ajax?}', [ElectionController::class, 'acompanhar'])->name('result');
+    Route::get('salvar-resultado/{election}', [ElectionController::class, 'pagina_impressao'])->name('print');
+    Route::post('criar-eleicao', [ElectionController::class, 'store'])->name('store');
+    Route::put('editar-eleicao/{id}', [ElectionController::class, 'update'])->name('update');
 });
 
 Route::controller(CandidateController::class)->middleware('auth')->name('candidate.')->group(function () {
@@ -34,6 +43,12 @@ Route::controller(ProfileController::class)->middleware('auth')->name('profile.'
     Route::get('perfil', 'edit')->name('edit');
     Route::patch('perfil', 'update')->name('update');
     Route::delete('perfil', 'destroy')->name('destroy');
+});
+
+Route::controller(BotConfigController::class)->middleware('auth')->name('bot.')->group(function () {
+    Route::get('configuracao-bot', 'edit')->name('configs');
+    Route::put('configuracao-bot', 'update')->name('update');
+    Route::post('enviar-relatorio', 'sendReportNow')->name('sendNow');
 });
 
 Route::controller(StudentController::class)->name('student.')->group(function () {

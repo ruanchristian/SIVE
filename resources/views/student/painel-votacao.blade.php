@@ -38,8 +38,8 @@
     <div class="container mt-3 mb-3 py-3">
         <div class="col-12">
             <div class="row">
-                <h5 class="col-12 text-center font-weight-bold mb-4">Candidatos ao Grêmio Estudantil -
-                    {{ $eleicao->year }}</h5>
+                <h5 class="col-12 text-center font-weight-bold mb-4">{{$eleicao->title}} - {{$eleicao->year}}
+                 </h5>
                 @foreach ($chapas as $chapa)
                     <div class="col-4 text-center">
                         <span class="d-block">{{ $chapa->name }} - <b>{{ $chapa->number }}</b></span>
@@ -62,7 +62,7 @@
                             <div class="col-12">
                                 <div class="row" style="position:relative;">
                                     <div class="offset-4 col-8">
-                                        <h4 class="text-uppercase font-weight-bold">Chapa:</h4>
+                                        <h4 class="text-uppercase font-weight-bold">Candidato:</h4>
                                         <img src="{{ asset('img/default.png') }}" class="img-fluid mb-2 foto-chapa"
                                             alt="">
                                     </div>
@@ -140,7 +140,7 @@
         data-urlsavevote="{{ route('student.vote', $eleicao) }}" data-stdid="{{ session('student.id') }}">
 
     <div class="text-center fixed-bottom p-3 bg-light">
-        Developed by:
+        Desenvolvido por:
         <u class="text-reset fw-bold">Ruan Christian</u> ©
     </div>
 </body>

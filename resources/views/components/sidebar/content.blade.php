@@ -53,4 +53,10 @@
             <x-heroicon-o-user-add class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </x-slot>
     </x-sidebar.link>
+
+    <x-sidebar.link title="Configurar BOT" href="{{ route('bot.configs') }}" :isActive="Str::startsWith(Route::currentRouteName(), 'bot.configs')">
+        <x-slot name="icon">
+            <x-hugeicons-bot class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+        </x-slot>
+    </x-sidebar.link>
 </x-perfect-scrollbar>

@@ -5,7 +5,7 @@
                 @if(isset($chapa))
                     Editando a chapa: {{ $chapa->name }}
                 @else
-                    Cadastro das chapas concorrentes ao grêmio estudantil de {{ $election->year }}
+                    Cadastro das chapas concorrentes {{$election->title}} de {{ $election->year }}
                 @endif
             </h2>
         </div>
@@ -30,8 +30,8 @@
 
             <div class="space-y-2 mt-4">
                 <x-form.label for="number" value="Número da chapa:" />
-                <x-form.input placeholder="Número da chapa" min="10" max="99" id="number" name="number"
-                    type="number" class="block w-full" value="{{ isset($chapa) ? $chapa->number : old('number') }}" required autofocus />
+                <x-form.input placeholder="Número da chapa" id="number" name="number"
+                    type="text" class="block w-full" value="{{ isset($chapa) ? $chapa->number : old('number') }}" required autofocus />
 
                 <x-form.error :messages="$errors->get('number')" />
             </div>
@@ -44,7 +44,7 @@
                 </label>
                 <div id="imagePreview" class="mt-2">
                     @if (isset($chapa))
-                      <img style="width: 11rem;" src="{{ asset($chapa->image) }}" class="mx-auto rounded" title="Logo da chapa: {{ $chapa->name }}" />
+                      <img style="width: 11rem;" src="{{ asset('storage/' .$chapa->image) }}" class="mx-auto rounded" title="Logo da chapa: {{ $chapa->name }}" />
                     @endif
                 </div>
 

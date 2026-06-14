@@ -26,7 +26,7 @@ class TelegramService extends Notification {
 
     public function toTelegram($notifiable) {
         return TelegramMessage::create()
-            ->to('-887362781')
+            ->to('-1002150126259')
             ->content($this->message);
     }
 

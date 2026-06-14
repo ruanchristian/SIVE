@@ -21,14 +21,14 @@
 <body class="font-sans antialiased">
     <div x-data="mainState">
         <div class="min-h-screen text-gray-900 bg-gray-100 dark:bg-dark-eval-0 dark:text-gray-200">
-            <div class="flex flex-col min-h-screen lg:ml-16">
+            <div class="flex flex-col min-h-screen">
                 <x-navbar />
 
                 <header>
                     <div class="p-4 sm:p-6">
                         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                             <h2 class="text-xl font-semibold leading-tight">
-                                Eleições em andamento
+                                Eleições em andamento:
                             </h2>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                                         <thead>
                                             <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                                                 <th class="py-3 px-6 text-left">Eleição</th>
-                                                <th class="py-3 px-6 text-left">Chapas concorrentes</th>
+                                                <th class="py-3 px-6 text-left">Chapas inscritas</th>
                                                 <th class="py-3 px-6 text-center">Data de criação</th>
                                                 <th class="py-3 px-6 text-center">Ações</th>
                                             </tr>

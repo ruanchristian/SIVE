@@ -17,7 +17,7 @@ use Illuminate\Http\{
 
 class StudentController extends Controller {
 
-    public function index(): View|RedirectResponse {
+    public function index() {
         if(!session('student')) return redirect('/');
 
         $eleicoes = Election::where('active', 1)->orderByDesc('year')->get();
@@ -50,6 +50,8 @@ class StudentController extends Controller {
     public function salvarVoto(Request $request, Election $election) {
         if (!$election->active || !$student = Student::find($request->stdid)) 
             return response('Erro ao salvar o voto!', 404);
+            
+        if ($this->hasVoted($election)) return;
        
         $chapa = $election->candidates()->where('number', $request->number)->first();
 

@@ -35,8 +35,7 @@ class CandidateController extends Controller {
         $candidate = new Candidate();
         $candidate->name = $request->name;
         $candidate->number = $request->number;
-        $candidate->image = 'storage/'. $request->image->store('img/chapas', 'public');
-
+        $candidate->image = $request->image->store('img/chapas', 'public');
         $election->candidates()->save($candidate);
 
         return back()->with('success', 'Chapa adicionada com sucesso!');
@@ -51,7 +50,7 @@ class CandidateController extends Controller {
             $oldPath = public_path($chapa->image);
             if (file_exists($oldPath)) unlink($oldPath);
         
-            $chapa->image = 'storage/' . $request->image->store('img/chapas', 'public');
+            $chapa->image = $request->image->store('img/chapas', 'public');
             $chapa->save();
         }
 

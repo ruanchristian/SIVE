@@ -9,9 +9,13 @@ class Election extends Model {
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = ['year', 'active'];
+    protected $fillable = ['year', 'title', 'active'];
 
     public function candidates() {
         return $this->hasMany(Candidate::class);
+    }
+
+    public function votes() {
+        return $this->hasMany(Vote::class);
     }
 }

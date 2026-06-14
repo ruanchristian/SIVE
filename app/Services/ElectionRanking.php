@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\BotConfig\BotConfigController;
 use App\Models\{
     Candidate,
     Election,
@@ -13,41 +14,36 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Notification;
 
 class ElectionRanking {
-    
-    private Election $election;
 
-    public function __construct(Election $election) {
-        $this->election = $election;
-    }
-
-    public function __invoke() {
-        $this->sendMessage();
-    }
-
-    private function sendMessage(): void {
+    public function send(Election $election) {
         $user = new User;
-        $candidates = $this->getCandidatesWithVotes();
+        $msg = $this->buildMessage($election);
+        Notification::send($user, new TelegramService($msg));
+    }
 
-        $message = "*SIVE* - Ranking Grêmio *".$this->election->year."*:\n\n";
+    private function buildMessage(Election $election): string {
+        $candidates = $this->getCandidatesWithVotes($election);
+
+        $message = "*SIVE* - Ranking\n\n";
         foreach ($candidates as $idx => $candidate) {
-            $per = $this->calculatePercentageByCandidate($candidate);
+            $per = $this->calculatePercentageByCandidate($candidate, $election);
             $message .= ($idx+1)."º lugar:\n*$candidate->name*\n$candidate->votes_count votos\n*$per%*\n\n";
         }
 
-        Notification::send($user, new TelegramService($message));
+        return $message;
     }
 
-    public function getCandidatesWithVotes(): Collection {
-        return $this->election->candidates()
+    public function getCandidatesWithVotes(Election $election): Collection {
+        return $election->candidates()
                     ->withCount('votes')
                     ->orderByDesc('votes_count')
                     ->orderBy('name')
                     ->get();
     }
 
-    public function calculatePercentageByCandidate(Candidate $candidate): float {
+    public function calculatePercentageByCandidate(Candidate $candidate, Election $election): float {
         $total = Vote::where('candidate_id', $candidate->id)->count();
-        $totalAllVotes = Vote::where('election_id', $this->election->id)->count();
+        $totalAllVotes = Vote::where('election_id', $election->id)->count();
 
         $result = 0.00;
         if ($totalAllVotes > 0) {

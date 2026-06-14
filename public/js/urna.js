@@ -40,7 +40,7 @@ $(document).ready(() => {
                 method: "GET",
                 data: { number: num },
                 success: function (response) {
-                    chapaImg.attr("src", $(location)[0].origin + "/" + response.image);
+                    chapaImg.attr("src", $(location)[0].origin + "/storage/" + response.image);
                     $(".nome-chapa").val(response.name);
                 },
                 error: function () {

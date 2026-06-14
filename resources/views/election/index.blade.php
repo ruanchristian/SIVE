@@ -22,12 +22,18 @@
         @endif       
             <div class="space-y-2">
                 <x-form.label for="year" value="Ano da eleição:" />
-                <x-form.input id="year" name="year" type="number" min="{{ date('Y') }}" class="block w-full"
+                <x-form.input id="year" name="year" type="number"  class="block w-full"
                     value="{{ isset($election) ? $election->year : old('year') }}" required autofocus />
 
                 <x-form.error :messages="$errors->get('year')" />
             </div>
+            <div class="space-y-2">
+                <x-form.label for="title" value="Titulo da eleição:" />
+                <x-form.input id="title" name="title" type="text"  class="block w-full"
+                    value="{{ isset($election) ? $election->title : old('title') }}" required autofocus />
 
+                <x-form.error :messages="$errors->get('title')" />
+            </div>
             @if (isset($election))
             <div class="space-y-2 mt-4">
                 <label for="active" class="block text-sm font-medium text-gray-700">Status da eleição:</label>

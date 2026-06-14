@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <h2 class="text-xl font-semibold leading-tight">
-                Chapas cadastradas
+                Candidatos cadastrados
             </h2>
         </div>
     </x-slot>
@@ -14,8 +14,8 @@
                     <table class="min-w-max w-full table-auto">
                         <thead>
                             <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                                <th class="py-3 px-6 text-left">Chapa</th>
-                                <th class="py-3 px-6 text-left">Nº da chapa</th>
+                                <th class="py-3 px-6 text-left">Candidato</th>
+                                <th class="py-3 px-6 text-left">Nº do Candidato</th>
                                 <th class="py-3 px-6 text-center">Eleição pertencente</th>
                                 <th class="py-3 px-6 text-center">Ações</th>
                             </tr>
@@ -26,7 +26,7 @@
                                     <th class="py-3 px-6 text-left whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="mr-2">
-                                                <img width="28" height="28" src="{{ asset($chapa->image) }}" alt="Logo: {{ $chapa->name }}">
+                                            <img width="28" height="28" src="{{ asset('storage/' . $chapa->image) }}" alt="Logo: {{ $chapa->name }}">
                                             </div>
                                             <span class="font-medium">{{ $chapa->name }}</span>
                                         </div>
@@ -45,7 +45,7 @@
                                                     </svg>
                                                 </div>
                                             </a>
-                                            <a title="Deletar" href="javascript:void(0);">
+                                            {{-- <a @disabled(true) title="Deletar" href="javascript:void(0);">
                                                 <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -54,13 +54,13 @@
                                                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                     </svg>
                                                 </div>
-                                            </a>
+                                            </a> --}}
                                         </div>
                                     </td>
                                 </tr>
                             @empty
                                 <td>
-                                    <p class="font-semibold text-red-500">Não há chapas cadastradas no sistema.</p>
+                                    <p class="font-semibold text-red-500">Não há canditatos cadastrados no sistema.</p>
                                 </td>
                             @endforelse
                         </tbody>

@@ -2,7 +2,8 @@
     <x-slot name="header">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <h2 class="text-xl font-semibold leading-tight">
-                Resultados da eleição de {{ $election->year }}
+                Resultados da eleição - {{$election->title}} -
+                {{ $election->year }}
             </h2>
             <span class="font-semibold {{ $election->active ? 'text-green-600 inline-block' : 'text-red-500' }}">
                 @if ($election->active)

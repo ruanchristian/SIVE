@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <title>Resultado Grêmio Estudantil {{ $election->year }} - EEEPJAS</title>
+    <title>Resultado {{ $election->year }} - EEEPJAS</title>
     <link rel="stylesheet" href="{{ asset('css/resultado.css') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -11,10 +11,10 @@
   <div class="chart-container text-center mt-16">
     <img src="{{ asset('img/eeepjas.svg') }}">
     <h1 class="text-xl font-semibold">{{ config('app.name') }}</h1>
-    <h1 class="chart-title font-semibold mb-4">Resultado Oficial do Grêmio Estudantil de {{ $election->year }}</h1>
+    <h1 class="chart-title font-semibold mb-4">Resultado {{ $election->title }} - {{$election->year}}</h1>
     <canvas id="chart" class="w-full"></canvas>
     <div class="ranking-list mt-6 mb-4">
-        <h3 class="text-lg font-semibold mb-2">Ranking das Chapas:</h3>
+        <h3 class="text-lg font-semibold mb-2">Ranking dos Candidatos:</h3>
         <ul id="chapa-ranking">
             @foreach ($candidates as $candidate)
                 <li class="mb-2"><span class="font-semibold">{{ $loop->iteration }}º lugar:</span>
