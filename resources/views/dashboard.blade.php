@@ -30,7 +30,7 @@
                         </span>
 
                         <div class="ml-4">
-                            <div class="text-3xl font-bold text-gray-700">
+                            <div class="text-3xl font-bold text-semibold-700">
                                 {{ $stats['elections'] }}
                             </div>
 
@@ -104,7 +104,7 @@
                         </span>
 
                         <div class="ml-4">
-                            <div class="text-3xl font-bold text-gray-700">
+                            <div class="text-3xl font-bold text-semibold-700">
                                 {{ $stats['candidates'] }}
                             </div>
 
@@ -160,7 +160,7 @@
                         </span>
 
                         <div class="ml-4">
-                            <div class="text-3xl font-bold text-gray-700">
+                            <div class="text-3xl font-bold text-semibold-700">
                                 {{ number_format($stats['votes'], 0, ',', '.') }}
                             </div>
 
@@ -290,7 +290,7 @@
                         </div>
 
                         <div class="flex justify-between">
-                            <span>Timezone</span>
+                            <span>Fuso Horário</span>
                             <span>{{ config('app.timezone') }}</span>
                         </div>
 
