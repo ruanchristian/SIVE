@@ -2,26 +2,20 @@
 
 use App\Http\Controllers\BotConfig\BotConfigController;
 use App\Http\Controllers\Candidate\CandidateController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Election\ElectionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\StudentController;
-use App\Models\BotConfig;
 
 Route::get('/', function () {return to_route('login');});
 
-Route::get('painel', function () {
-    return view('dashboard');
-})->middleware('auth')->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->name('election.')->group(function () {
-    // Rota para visualizar o modal de confirmação de exclusão
     Route::get('election/{id}/confirm-delete', [ElectionController::class, 'delete'])->name('confirmDelete');
-
-    // Rota para confirmar e efetuar a exclusão da eleição
     Route::delete('election/{id}', [ElectionController::class, 'confirmDelete'])->name('confirmDeletePost');
-    
-    // Suas outras rotas existentes...
+
     Route::get('criar-eleicao', [ElectionController::class, 'index'])->name('index');
     Route::get('editar-eleicao/{id}', [ElectionController::class, 'index'])->name('edit');
     Route::get('visualizar', [ElectionController::class, 'visualizar'])->name('seeall');

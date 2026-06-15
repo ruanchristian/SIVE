@@ -32,12 +32,7 @@
             :isActive="request()->routeIs('election.seeall')"></x-sidebar.sublink>
     </x-sidebar.dropdown>
 
-    {{-- <x-sidebar.dropdown title="Usuários" :active="Str::startsWith(
-        request()
-            ->route()
-            ->uri(),
-        'user.',
-    )">
+    {{-- <x-sidebar.dropdown title="Usuários" :active="Str::startsWith(request()->route()->uri(), 'user.')">
 
         <x-slot name="icon">
             <x-heroicon-o-user class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
@@ -59,4 +54,5 @@
             <x-hugeicons-bot class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </x-slot>
     </x-sidebar.link>
+
 </x-perfect-scrollbar>

@@ -123,8 +123,8 @@ class ElectionController extends Controller {
 
     public function pagina_impressao(Election $election): View {
         $rankService = new ElectionRanking($election);
-        $candidates = $rankService->getCandidatesWithVotes();
-        $maxPercentage = $rankService->calculatePercentageByCandidate($candidates[0]);
+        $candidates = $rankService->getCandidatesWithVotes($election);
+        $maxPercentage = $rankService->calculatePercentageByCandidate($candidates[0], $election);
         $notCountable = Vote::where('election_id', $election->id)->count() - $candidates->sum('votes_count');
         
         return view('election.resultado-impressao', compact('election', 'candidates', 'maxPercentage', 'notCountable'));
