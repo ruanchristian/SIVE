@@ -145,6 +145,22 @@
     </div>
 </body>
 
+<script>
+    window.candidatosUrna = {
+        @foreach($chapas as $chapa)
+            "{{ $chapa->number }}": {
+                "name": "{{ $chapa->name }}",
+                "image": "{{ asset('storage/' . $chapa->image) }}"
+            },
+        @endforeach
+    };
+
+    Object.values(window.candidatosUrna).forEach(candidato => {
+        const img = new Image();
+        img.src = candidato.image;
+    });
+</script>
+
 <script src="{{ asset('jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('js/urna.js') }}"></script>
 
