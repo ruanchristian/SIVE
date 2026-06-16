@@ -35,18 +35,15 @@ $(document).ready(() => {
             confirmarBtn.removeAttr("disabled");
 
             let num = ten.val() + unit.val();
-            $.ajax({
-                url: btnUrl.data("urlsearch"),
-                method: "GET",
-                data: { number: num },
-                success: function (response) {
-                    chapaImg.attr("src", $(location)[0].origin + "/storage/" + response.image);
-                    $(".nome-chapa").val(response.name);
-                },
-                error: function () {
-                    $(".nome-chapa").val("voto nulo");
-                },
-            });
+
+            if(window.candidatosUrna && window.candidatosUrna[num]) {
+                let chapa = window.candidatosUrna[num];
+                chapaImg.attr("src", chapa.image);
+                $(".nome-chapa").val(chapa.name);
+            } else {
+                chapaImg.attr("src", "{{ asset('img/default.png') }}");
+                $(".nome-chapa").val("voto nulo");
+            }
         }
     });
 
